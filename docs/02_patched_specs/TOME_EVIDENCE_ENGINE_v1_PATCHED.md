@@ -101,27 +101,7 @@ The Evidence Engine operates its own sub-graph.
 ### TypeScript Interfaces
 
 ```typescript
-export type DerivationMethod = 
-  | 'OBSERVED_STRUCTURAL' 
-  | 'LLM_INFERRED' 
-  | 'HUMAN_ASSERTED';
-
-> [!IMPORTANT] **[SUPERSEDED]** Replaced by the 9-state unified lifecycle.
-
-export type ClaimStatus =
-  | 'GENERATED'
-  | 'VALIDATED'
-  | 'DIRTY'
-  | 'RECALCULATING'
-  | 'ORPHANED'
-  | 'ORPHANED_HUMAN'
-  | 'CHALLENGED'
-  | 'CONTRADICTED'
-  | 'ARCHIVED'; New evidence directly opposes this claim.
-
-> [!IMPORTANT] **[SUPERSEDED]** LLM Baseline Confidence is explicitly ignored.
-
-Confidence scoring uses the hybrid discrete/numeric system defined in `TOME_ARCHITECTURE_AMENDMENT_v1` Resolution 6. Base LLM claims start at 0.5 and increase/decrease strictly based on structural evidence edge counts.
+// The DerivationMethod and ClaimStatus enums are defined authoritatively in TOME_ARCHITECTURE_AMENDMENT_v1. Do not redefine them here.
 
 export interface ConfidenceScore {
   level: ConfidenceLevel;

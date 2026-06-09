@@ -272,7 +272,7 @@ Both `.ris-state.json` AND all 5 `*.md` files participate in a single atomic tra
 ### Resolution to Question 6: Atomic Writes
 Node.js `fs.writeFile` is not atomic. 
 ToMe writes to `.tmp` files (`.ris-state.tmp.json`, `architect.tmp.md`). 
-Once all `.tmp` files are successfully written and flushed to disk (`fs.fdatasyncSync`), ToMe uses the OS-level `fs.renameSync()` to overwrite the target files. `rename` is atomic in POSIX and Windows. This guarantees zero file corruption even during a hard power loss.
+Once all `.tmp` files are successfully written and flushed to disk (`fs.fdatasyncSync`), ToMe uses the OS-level `fs.renameSync()` to overwrite the target files. While atomic in POSIX, `fs.renameSync` on Windows is not guaranteed atomic and requires a mandatory retry loop to mitigate EBUSY/EPERM errors during atomic saves. This guarantees zero file corruption even during a hard power loss.
 
 ## 41. ROLLBACK STRATEGY
 If any `.tmp` write fails, the transaction is aborted, and all `.tmp` files are deleted. The original `.tome/` directory remains untouched.

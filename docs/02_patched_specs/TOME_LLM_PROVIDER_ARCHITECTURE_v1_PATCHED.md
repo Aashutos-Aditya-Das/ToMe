@@ -127,14 +127,7 @@ The Provider Adapter translates `ToMeTool` into the specific format required by 
 The Core Engine relies solely on interfaces. It does not know HTTP exists.
 
 ## 11. ILLMCLIENT DEFINITION
-```typescript
-export interface ILLMClient {
-  id: string;
-  generateStructured<T>(prompt: PromptRequest, schema: ZodSchema<T>): Promise<T>;
-  stream?(prompt: PromptRequest): AsyncIterable<string>;
-  getCostEstimate(prompt: PromptRequest): number;
-}
-```
+The `ILLMClient` interface is defined authoritatively in `TOME_ARCHITECTURE_AMENDMENT_v1`. Do not redefine it here.
 
 ## 12. PROVIDER ADAPTER ARCHITECTURE
 Adapters implement `ILLMClient`. They map internal `PromptRequest` objects (which contain system messages, user messages, and context blocks) into the vendor-specific HTTP JSON body.
