@@ -105,8 +105,10 @@ The intelligence graph relies on strict state machines to manage decay and trust
 *   `DIRTY`: Structural evidence was modified; requires LLM re-check.
 *   `RECALCULATING`: Currently in the LLM execution pipeline.
 *   `ORPHANED`: Structural evidence was deleted. Claim is likely false.
+*   `ORPHANED_HUMAN`: Human assertion where underlying code vanished.
+*   `CHALLENGED`: LLM found conflicting evidence but is forbidden from modifying the claim.
+*   `CONTRADICTED`: New evidence directly opposes this claim.
 *   `ARCHIVED`: Preserved for historical context but inactive.
-*   `DELETED`: Physically removed from the JSON.
 
 ### 8. EVIDENCE LIFECYCLE STATE MACHINE
 *   `ACTIVE`: Edge perfectly links a Claim to an existing Structural Node.
@@ -168,16 +170,12 @@ Codebase shows: Redis completely removed.
 Markdown files are plain text. When a user edits `memory.md`, how does ToMe know which Claim they edited?
 
 **The Artifact Block Identity System**
-During serialization, the `MemorySerializer` appends an invisible HTML comment to the end of every markdown block (heading/paragraph pair).
-```markdown
-### 1. Authentication Domain
-Handles user registration and login.
-<!-- tome-claim-id: uuid-1234-5678 -->
-```
+During serialization, the `MemorySerializer` utilizes Tier 1 Heading Anchors. The engine maps deterministic Markdown headings to Claim IDs in the RIS.
+
 During `tome update`:
-1. The parser splits the Markdown by these invisible IDs.
+1. The parser splits the Markdown by these Heading Anchors.
 2. It hashes the text.
-3. If the text hash differs from the hash stored in `.ris-state.json` for `uuid-1234-5678`, ToMe triggers the override.
+3. If the text hash differs from the hash stored in `.ris-state.json` for the mapped Claim ID, ToMe triggers the override.
 4. The text block is pushed into the RIS Claim value, marked `HUMAN_ASSERTED`.
 
 ---
@@ -311,6 +309,6 @@ In Phase 8, the Update Engine will be embedded into CI/CD pipelines (e.g., GitHu
 
 ## 41. FINAL ENGINEERING VERDICT
 
-The Update Engine is the most complex component of ToMe. By establishing invisible HTML comment tracking for Markdown reconciliation, Semantic Anchoring for Full Rewrites, and strict State Machines for Evidence decay, we guarantee that ToMe's intelligence will cleanly evolve with the codebase.
+The Update Engine is the most complex component of ToMe. By establishing Heading Anchor tracking for Markdown reconciliation, Semantic Anchoring for Full Rewrites, and strict State Machines for Evidence decay, we guarantee that ToMe's intelligence will cleanly evolve with the codebase.
 
 Most importantly, the architecture explicitly defends the primacy of the Developer. Through the `HUMAN_ASSERTED` and `SuggestedMutation` frameworks, ToMe behaves as a respectful pair programmer that never silently overwrites human knowledge.

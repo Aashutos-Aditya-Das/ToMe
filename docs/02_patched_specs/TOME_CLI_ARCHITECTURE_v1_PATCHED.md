@@ -116,7 +116,7 @@ The CLI acts as the Inversion of Control (IoC) container. It instantiates the `I
 The CLI holds no business state. Its only state is "Execution Status" (e.g., `isShuttingDown: boolean`, `currentPhase: 'PARSING'`).
 
 ## 11. COMMAND REGISTRY
-A strict dictionary mapping command strings to class constructors. Unknown commands trigger a unified `HelpRenderer` output.
+A strict dictionary mapping command strings to class constructors. Unknown commands trigger a unified `HelpRenderer` output. Supported commands must strictly include: `init`, `update`, `validate`, `doctor`, `serve`, `assert`, `config get`, `config set`, and `config inspect`.
 
 ## 12. COMMAND DISCOVERY
 Commands are auto-discovered at build time to populate the `tome --help` menu, ensuring documentation never drifts from code capability.
@@ -211,11 +211,14 @@ If invoked with `--json`, the CLI suppresses ALL human-readable output and spinn
 Errors are never simply thrown. They cascade up to the `CommandRouter`, which passes them to the `ErrorRenderer`.
 
 ## 39. ERROR CLASSIFICATION
-Errors are strongly typed:
-* `UserError` (Invalid flags, Bad config) -> Exit Code 1.
-* `SystemError` (OOM, Permission Denied) -> Exit Code 2.
-* `NetworkError` (Anthropic 503) -> Exit Code 3.
-* `DataError` (Corrupt `.ris-state.json`) -> Exit Code 4.
+Errors are strongly typed and correspond directly to standard exit codes:
+* 0: Success
+* 1: User Error
+* 2: Config Error
+* 3: Repo Error
+* 4: Provider Error
+* 5: Data Error
+* 6: System Error
 
 ## 40. EXIT CODES
 The CLI strictly obeys POSIX standard exit codes to integrate flawlessly with `bash` scripts and CI runners.

@@ -279,18 +279,7 @@ Before `tome update` writes to disk, `MarkdownFileStore` backs up `.tome/` to a 
 
 # SECTION 9 — LLM ARCHITECTURE
 
-```typescript
-export > [!WARNING] **[DEPRECATED]** The `generateText` method and `schema: any` typing are obsolete.
-
-```typescript
-// Authoritative interface defined in TOME_ARCHITECTURE_AMENDMENT_v1
-export interface ILLMClient {
-  readonly providerId: string;
-  generateStructured<T>(prompt: PromptRequest, schema: ZodSchema<T>): Promise<LLMResult<T>>;
-  countTokens(text: string): Promise<number>;
-}
-```
-```
+The `ILLMClient` interface is defined authoritatively in `TOME_ARCHITECTURE_AMENDMENT_v1`. Do not redefine it here.
 
 **Prompt Architecture:**
 Prompts are isolated in `domain/prompts/`. They must not contain hardcoded formatting.

@@ -130,18 +130,7 @@ The raw Tree-sitter AST is highly volatile memory.
 
 ## 10. PARSER ABSTRACTION LAYER
 
-```typescript
-export interface IParserEngine {
-  parseWorkspace(paths: string[]): Promise<RepositoryModel>;
-  parseFile(path: string): Promise<FileNode>;
-}
-
-export interface ILanguageAdapter {
-  supports(filename: string): boolean;
-  extractSymbols(ast: any): ExtractedSymbol[];
-  extractDependencies(ast: any): ASTDependencyEdge[];
-}
-```
+The `IParserEngine` and `ILanguageAdapter` interfaces are defined authoritatively in `TOME_ARCHITECTURE_AMENDMENT_v1`. Do not redefine them here.
 The Core Engine knows nothing about TypeScript or Python. It only orchestrates `ILanguageAdapter` instances.
 
 ## 11. PARSER ADAPTER ARCHITECTURE
