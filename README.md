@@ -11,3 +11,5 @@ Provider-neutral repository understanding platform built using:
 - MCP
 
 Status: MVP Development
+
+Main Development going on in " develop " Branch - GO through it for the latest changes !!!
