@@ -59,3 +59,6 @@ tome serve
 This starts an MCP Server. You can plug this into Claude Desktop and it will be in the big games in the long run.
 
 So, I guess I have cleared out my intentions for this tool. Have fun using it, and let the beauty words of your new architecture docs impress everyone around you!
+
+
+## P.S : I would surely love to get all the views and improvements you think it will require. It's a tool made out of a requirement so I would work on your ideas and make it much better if you all can  help as well.
